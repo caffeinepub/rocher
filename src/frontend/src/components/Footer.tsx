@@ -22,6 +22,26 @@ const helpLinks = [
   { label: "Size Guide", href: "/" },
 ];
 
+function InstagramIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -51,9 +71,17 @@ export function Footer() {
               Performance gear engineered for those who refuse to settle.
               Precision crafted. Built to endure.
             </p>
-            <p className="text-white/40 text-xs uppercase tracking-nav">
-              www.rocher.com
-            </p>
+            <a
+              href="https://www.instagram.com/official_rocher"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors group"
+              data-ocid="footer.link"
+              aria-label="Follow Rocher on Instagram"
+            >
+              <InstagramIcon size={18} />
+              <span className="text-sm tracking-wide">@official_rocher</span>
+            </a>
           </div>
 
           {/* Link columns */}
@@ -163,17 +191,30 @@ export function Footer() {
           <p className="text-white/40 text-xs">
             © {year} ROCHER. All rights reserved.
           </p>
-          <p className="text-white/30 text-xs">
-            Built with ❤️ using{" "}
+          <div className="flex items-center gap-4">
             <a
-              href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(hostname)}`}
+              href="https://www.instagram.com/official_rocher"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white/60 transition-colors underline"
+              className="flex items-center gap-1.5 text-white/40 hover:text-white/80 transition-colors"
+              aria-label="Instagram"
+              data-ocid="footer.link"
             >
-              caffeine.ai
+              <InstagramIcon size={15} />
+              <span className="text-xs">official_rocher</span>
             </a>
-          </p>
+            <p className="text-white/30 text-xs">
+              Built with ❤️ using{" "}
+              <a
+                href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(hostname)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white/60 transition-colors underline"
+              >
+                caffeine.ai
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
