@@ -5,72 +5,34 @@ import { useActor } from "./useActor";
 
 const FALLBACK_NEW_ARRIVALS: Product[] = [
   {
-    id: "na-1",
-    name: "Apex Training Shorts",
+    id: "rocher-pant",
+    name: "Rocher Pant",
     isNewArrival: true,
     description:
-      "High-performance training shorts with moisture-wicking fabric.",
-    sizes: ["XS", "S", "M", "L", "XL"],
-    imageKey: "shorts",
-    isFeatured: false,
-    category: Category.mens,
-    colors: ["Black"],
-    price: 8900n,
-  },
-  {
-    id: "na-2",
-    name: "Motion Performance Top",
-    isNewArrival: true,
-    description: "Lightweight athletic top engineered for peak performance.",
-    sizes: ["XS", "S", "M", "L", "XL"],
-    imageKey: "top",
-    isFeatured: false,
-    category: Category.mens,
-    colors: ["Charcoal"],
-    price: 7500n,
-  },
-  {
-    id: "na-3",
-    name: "Endure Zip Hoodie",
-    isNewArrival: true,
-    description: "Versatile zip hoodie for pre and post-workout warmth.",
+      "Premium gym pant with Rocher branding. Lightweight and comfortable.",
     sizes: ["S", "M", "L", "XL", "XXL"],
-    imageKey: "hoodie",
+    imageKey: "rocher-pant",
     isFeatured: true,
     category: Category.mens,
-    colors: ["Onyx"],
-    price: 13900n,
+    colors: ["Black"],
+    price: 55000n,
+  },
+  {
+    id: "rocher-tshirt",
+    name: "Rocher T-Shirt",
+    isNewArrival: true,
+    description:
+      "Feel The Strength. Premium gym tee with Rocher logo front and back graphic.",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    imageKey: "rocher-tshirt-front|rocher-tshirt-back",
+    isFeatured: true,
+    category: Category.mens,
+    colors: ["White"],
+    price: 25000n,
   },
 ];
 
-const FALLBACK_ALL_PRODUCTS: Product[] = [
-  ...FALLBACK_NEW_ARRIVALS,
-  {
-    id: "p-4",
-    name: "Contour High-Waist Leggings",
-    isNewArrival: false,
-    description:
-      "Second-skin leggings with 4-way stretch and squat-proof fabric.",
-    sizes: ["XS", "S", "M", "L", "XL"],
-    imageKey: "leggings",
-    isFeatured: true,
-    category: Category.womens,
-    colors: ["Black"],
-    price: 11900n,
-  },
-  {
-    id: "p-5",
-    name: "Form Sports Bra",
-    isNewArrival: false,
-    description: "Medium-support sports bra with sleek minimal straps.",
-    sizes: ["XS", "S", "M", "L"],
-    imageKey: "sportsbra",
-    isFeatured: true,
-    category: Category.womens,
-    colors: ["Black"],
-    price: 6900n,
-  },
-];
+const FALLBACK_ALL_PRODUCTS: Product[] = [...FALLBACK_NEW_ARRIVALS];
 
 export function useNewArrivals() {
   const { actor, isFetching } = useActor();

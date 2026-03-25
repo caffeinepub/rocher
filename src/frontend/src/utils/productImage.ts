@@ -7,6 +7,12 @@ const IMAGE_MAP: Record<string, string> = {
   sportsbra: "/assets/generated/product-sportsbra.dim_600x700.jpg",
   "sports-bra": "/assets/generated/product-sportsbra.dim_600x700.jpg",
   bra: "/assets/generated/product-sportsbra.dim_600x700.jpg",
+  "rocher-pant":
+    "/assets/uploads/rocher-pants.jpg-019d23fe-6911-7569-8759-14f7b842f417-1.jpg",
+  "rocher-tshirt-front":
+    "/assets/uploads/rocher-tshirt-front.jpg-019d23fe-6b20-7048-b19a-bb5ee3f83312-3.jpg",
+  "rocher-tshirt-back":
+    "/assets/uploads/rocher-tshirt-back.jpg-019d23fe-6a6c-7272-a531-f930d2c89780-2.jpg",
 };
 
 export function getProductImage(imageKey: string): string {
@@ -18,10 +24,15 @@ export function getProductImage(imageKey: string): string {
   );
 }
 
+export function getProductImages(imageKey: string): string[] {
+  return imageKey.split("|").map((key) => getProductImage(key.trim()));
+}
+
 export function formatPrice(cents: bigint): string {
-  const dollars = Number(cents) / 100;
-  return new Intl.NumberFormat("en-US", {
+  const rupees = Number(cents) / 100;
+  return new Intl.NumberFormat("en-IN", {
     style: "currency",
-    currency: "USD",
-  }).format(dollars);
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(rupees);
 }

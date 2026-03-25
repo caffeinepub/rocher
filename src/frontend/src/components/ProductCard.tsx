@@ -1,15 +1,20 @@
 import { motion } from "motion/react";
+import { useState } from "react";
 import type { Product } from "../backend";
 import { useCart } from "../context/CartContext";
-import { formatPrice, getProductImage } from "../utils/productImage";
+import { formatPrice, getProductImages } from "../utils/productImage";
 
 interface ProductCardProps {
   product: Product;
   index: number;
 }
 
+const VIEW_LABELS = ["Front", "Back"];
+
 export function ProductCard({ product, index }: ProductCardProps) {
   const { addItem } = useCart();
+  const images = getProductImages(product.imageKey);
+  const [activeIdx, setActiveIdx] = useState(0);
 
   return (
     <motion.div
@@ -20,11 +25,15 @@ export function ProductCard({ product, index }: ProductCardProps) {
       className="bg-card group"
       data-ocid={`products.item.${index + 1}`}
     >
-      <div className="relative overflow-hidden bg-background aspect-[6/7]">
+      <div
+        className="relative overflow-hidden bg-background aspect-[6/7] cursor-pointer"
+        onMouseEnter={() => images.length > 1 && setActiveIdx(1)}
+        onMouseLeave={() => images.length > 1 && setActiveIdx(0)}
+      >
         <img
-          src={getProductImage(product.imageKey)}
-          alt={product.name}
-          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          src={images[activeIdx]}
+          alt={`${product.name} view ${activeIdx + 1}`}
+          className="w-full h-full object-cover object-center transition-all duration-500"
           loading="lazy"
         />
         {product.isNewArrival && (
@@ -32,7 +41,38 @@ export function ProductCard({ product, index }: ProductCardProps) {
             New
           </span>
         )}
+        {images.length > 1 && (
+          <div className="absolute bottom-3 right-3 bg-black/60 text-white text-[10px] uppercase tracking-wide px-2 py-1">
+            {VIEW_LABELS[activeIdx] ?? `View ${activeIdx + 1}`}
+          </div>
+        )}
       </div>
+
+      {images.length > 1 && (
+        <div className="flex gap-1.5 px-4 pt-3">
+          {images.map((src, i) => (
+            <button
+              key={src}
+              type="button"
+              onClick={() => setActiveIdx(i)}
+              className={`flex-1 h-14 overflow-hidden border-2 transition-colors ${
+                activeIdx === i
+                  ? "border-rocher-dark"
+                  : "border-transparent opacity-60 hover:opacity-90"
+              }`}
+              aria-label={VIEW_LABELS[i] ?? `View ${i + 1}`}
+              data-ocid={`products.toggle.${index + 1}`}
+            >
+              <img
+                src={src}
+                alt=""
+                className="w-full h-full object-cover object-center"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="p-4">
         <div className="flex items-start justify-between gap-2 mb-1">
           <p className="font-semibold text-sm uppercase tracking-wide leading-tight flex-1 truncate">
